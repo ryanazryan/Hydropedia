@@ -4,10 +4,15 @@
  */
 package com.hydropedia.hydropedia.repository;
 
+import com.hydropedia.hydropedia.model.JenisTanaman;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author Ryan
  */
-public class JenisTanamanRepository {
+@Repository
+public interface JenisTanamanRepository extends JpaRepository<JenisTanaman, Integer> {
     
 }
