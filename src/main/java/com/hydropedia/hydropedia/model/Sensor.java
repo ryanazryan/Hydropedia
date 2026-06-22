@@ -12,7 +12,8 @@ public abstract class Sensor {
     private int idSensor;
     private double nilai;
 
-    public Sensor() {}
+    public Sensor() {
+    }
 
     public Sensor(int idSensor, double nilai) {
         this.idSensor = idSensor;

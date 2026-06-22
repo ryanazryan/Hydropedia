@@ -32,7 +32,6 @@ public class Tanaman {
         this.jenisTanaman = jenisTanaman;
     }
     
-    // Method sesuai di class diagram
     public void getInfoTanaman() {
         System.out.println("Nama Tanaman : " + namaTanaman);
         System.out.println("Kategori     : " + (jenisTanaman != null ? jenisTanaman.getNamaJenis() : "Belum ada kategori"));
