@@ -4,10 +4,14 @@
  */
 package com.hydropedia.hydropedia.repository;
 
+import com.hydropedia.hydropedia.model.Notifikasi;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author Ryan
  */
-public class NotifikasiRepository {
-    
+@Repository
+public interface NotifikasiRepository extends JpaRepository<Notifikasi, Integer> {
 }

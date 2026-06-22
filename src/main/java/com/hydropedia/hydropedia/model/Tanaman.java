@@ -9,9 +9,6 @@ package com.hydropedia.hydropedia.model;
  * @author Ryan
  */
 public class Tanaman {
-<<<<<<< Updated upstream
-    
-=======
     private int idTanaman;
     private String namaTanaman;
     private int estimasiUmur;
@@ -56,7 +53,7 @@ public class Tanaman {
         return namaTanaman;
     }
     
-    public void setnamaTanaman(String namaTanaman){
+    public void setNamaTanaman(String namaTanaman){
         this.namaTanaman = namaTanaman;
     }
     
@@ -98,5 +95,4 @@ public class Tanaman {
     public void setJenisTanaman(JenisTanaman jenisTanaman){
         this.jenisTanaman = jenisTanaman;
     }
->>>>>>> Stashed changes
 }

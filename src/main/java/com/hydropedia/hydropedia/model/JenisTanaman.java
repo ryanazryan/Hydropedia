@@ -15,9 +15,6 @@ import jakarta.persistence.*;
 @Table(name = "jenis_tanaman")
 
 public class JenisTanaman {
-<<<<<<< Updated upstream
-    
-=======
     @Id 
     @GeneratedValue(strategy = GenerationType.IDENTITY) 
     private int idJenis;
@@ -47,5 +44,4 @@ public class JenisTanaman {
     public void setNamaJenis(String namaJenis){
         this.namaJenis = namaJenis;
     }
->>>>>>> Stashed changes
 }
