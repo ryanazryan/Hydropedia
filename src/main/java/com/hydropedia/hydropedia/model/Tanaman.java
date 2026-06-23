@@ -3,12 +3,19 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.hydropedia.hydropedia.model;
+import jakarta.persistence.*;
 
 /**
  *
  * @author Ryan
  */
+
+@Entity
+@Table(name = "tanaman")
 public class Tanaman {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idTanaman;
     private String namaTanaman;
     private int estimasiUmur;
