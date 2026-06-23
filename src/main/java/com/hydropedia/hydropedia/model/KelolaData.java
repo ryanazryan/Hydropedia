@@ -8,6 +8,9 @@ package com.hydropedia.hydropedia.model;
  *
  * @author Ryan
  */
-public class KelolaData {
-    
+public interface KelolaData {
+    void tambahData();
+    void ubahData();
+    void hapusData();
+    void tampilData();
 }
