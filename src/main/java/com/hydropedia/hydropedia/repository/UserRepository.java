@@ -4,10 +4,16 @@
  */
 package com.hydropedia.hydropedia.repository;
 
+import com.hydropedia.hydropedia.model.User;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+
 /**
  *
  * @author Ryan
  */
-public class UserRepository {
+
+@Repository
+public interface UserRepository extends JpaRepository<User, Integer>{
     
 }
