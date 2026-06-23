@@ -1,1 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Data Tanaman</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Data Tanaman</h2>
+    <a href="/dashboard" class="btn btn-secondary mb-3">
+        Kembali
+    </a>
+    <table class="table table-striped table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nama</th>
+            <th>Umur</th>
+            <th>pH Min</th>
+            <th>pH Max</th>
+            <th>Nutrisi</th>
+            <th>Jenis</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="tanaman : ${tanamanList}">
+            <td th:text="${tanaman.idTanaman}"></td>
+            <td th:text="${tanaman.namaTanaman}"></td>
+            <td th:text="${tanaman.estimasiUmur}"></td>
+            <td th:text="${tanaman.phIdealMin}"></td>
+            <td th:text="${tanaman.phIdealMax}"></td>
+            <td th:text="${tanaman.nutrisiIdeal}"></td>
+            <td th:text="${tanaman.jenisTanaman.namaJenis}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

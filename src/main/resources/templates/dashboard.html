@@ -1,17 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <title>Dashboard Hydropedia</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body{
+            background:#f5f7fa;
+        }
+        .card-stat{
+            border:none;
+            border-radius:15px;
+            box-shadow:0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .navbar-brand{
+            font-weight:bold;
+        }
+    </style>
 </head>
 <body>
 
-<h1>Dashboard Hydropedia</h1>
-
-<ul>
-    <li><a href="/tanaman">Kelola Tanaman</a></li>
-    <li><a href="/monitoring">Monitoring</a></li>
-    <li><a href="/notifikasi">Notifikasi</a></li>
-</ul>
-
+<nav class="navbar navbar-dark bg-success">
+    <div class="container-fluid">
+        <span class="navbar-brand">Hydropedia</span>
+    </div>
+</nav>
+<div class="container mt-4">
+    <h2 class="mb-4">Dashboard</h2>
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card card-stat">
+                <div class="card-body">
+                    <h6>Total Tanaman</h6>
+                    <h2 th:text="${totalTanaman}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-stat">
+                <div class="card-body">
+                    <h6>Jenis Tanaman</h6>
+                    <h2 th:text="${totalJenis}">0</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card card-stat">
+                <div class="card-body">
+                    <h6>Notifikasi</h6>
+                    <h2 th:text="${totalNotifikasi}">0</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="mt-5">
+        <a href="/tanaman" class="btn btn-success me-2">
+            Kelola Tanaman
+        </a>
+        <a href="/monitoring" class="btn btn-primary me-2">
+            Monitoring
+        </a>
+        <a href="/notifikasi" class="btn btn-warning">
+            Notifikasi
+        </a>
+    </div>
+</div>
 </body>
 </html>

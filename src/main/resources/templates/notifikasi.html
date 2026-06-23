@@ -1,1 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Notifikasi</title>
 
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+
+<div class="container mt-4">
+    <h2>Riwayat Notifikasi</h2>
+    <a href="/dashboard" class="btn btn-secondary mb-3">
+        Kembali
+    </a>
+    <table class="table table-bordered">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Status</th>
+            <th>Pesan</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="notif : ${notifikasiList}">
+            <td th:text="${notif.idNotifikasi}"></td>
+            <td th:text="${notif.status}"></td>
+            <td th:text="${notif.pesan}"></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
