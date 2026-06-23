@@ -11,39 +11,70 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import com.hydropedia.hydropedia.model.Monitoring;
+import com.hydropedia.hydropedia.repository.MonitoringRepository;
+
 /**
  *
  * @author Ryan
  */
-
 @Controller
 public class ViewController {
+
     @Autowired
     private TanamanRepository tanamanRepository;
     @Autowired
     private JenisTanamanRepository jenisTanamanRepository;
     @Autowired
     private NotifikasiRepository notifikasiRepository;
+    @Autowired
+    private MonitoringRepository monitoringRepository;
+
     @GetMapping("/")
     public String login() {
         return "login";
     }
+
+    @GetMapping("/register")
+    public String registerPage() {
+        return "register";
+    }
+
     @GetMapping("/dashboard")
     public String dashboard(Model model) {
+
         model.addAttribute(
                 "totalTanaman",
                 tanamanRepository.count()
         );
+
         model.addAttribute(
                 "totalJenis",
                 jenisTanamanRepository.count()
         );
+
         model.addAttribute(
                 "totalNotifikasi",
                 notifikasiRepository.count()
         );
+
+        Monitoring latest
+                = monitoringRepository
+                        .findTopByOrderByIdMonitoringDesc();
+
+        model.addAttribute(
+                "monitoring",
+                latest
+        );
+
+        model.addAttribute(
+                "notifikasiList",
+                notifikasiRepository.findAll()
+        );
+
         return "dashboard";
     }
+
     @GetMapping("/tanaman")
     public String tanaman(Model model) {
 
@@ -53,6 +84,18 @@ public class ViewController {
         );
         return "tanaman";
     }
+
+    @GetMapping("/tanaman/tambah")
+    public String tambahTanaman(Model model) {
+
+        model.addAttribute(
+                "jenisList",
+                jenisTanamanRepository.findAll()
+        );
+
+        return "tanaman-form";
+    }
+
     @GetMapping("/monitoring")
     public String monitoring(Model model) {
 
@@ -67,6 +110,7 @@ public class ViewController {
         );
         return "monitoring";
     }
+
     @GetMapping("/notifikasi")
     public String notifikasi(Model model) {
         model.addAttribute(

@@ -4,7 +4,7 @@
  */
 package com.hydropedia.hydropedia.repository;
 
-import com.hydropedia.hydropedia.model.User;
+import com.hydropedia.hydropedia.model.Monitoring;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -12,10 +12,10 @@ import org.springframework.stereotype.Repository;
  *
  * @author Ryan
  */
-
 @Repository
-public interface UserRepository extends JpaRepository<User, Integer>{
+public interface MonitoringRepository
+        extends JpaRepository<Monitoring, Integer> {
 
-    User findByUsername(String username);
+    Monitoring findTopByOrderByIdMonitoringDesc();
 
 }

@@ -14,6 +14,7 @@ import java.util.List;
  *
  * @author Ryan
  */
+
 @Service
 public class UserService {
 
@@ -24,7 +25,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public List<User> getAllUser() {
-        return userRepository.findAll();
+    public boolean login(String username, String password){
+
+        User user =
+                userRepository.findByUsername(username);
+
+        if(user == null){
+            return false;
+        }
+
+        return user.getPassword().equals(password);
     }
 }

@@ -15,6 +15,11 @@ target/
 .springBeans
 .sts4-cache
 
+*.db
+*.db-shm
+*.db-wal
+*.sqbpro
+
 ### IntelliJ IDEA ###
 .idea/
 *.iws

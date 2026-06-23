@@ -1,36 +1,256 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="id">
 <head>
-    <title>Monitoring</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydropedia - Monitoring</title>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            /* WARNA KONSISTEN DENGAN DASHBOARD & TANAMAN */
+            --bg-color: #eef9f1;       
+            --logo-green: #158a4c;     
+            --border-green: #32d373;   
+            --text-dark: #283b4e;      
+            --text-gray: #829292;      
+            --card-bg: #ffffff;        
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            overflow-x: hidden;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* ANIMASI KONSISTEN */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(25px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes floatEffect {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-5px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* SIDEBAR (Sama persis) */
+        .sidebar {
+            width: 270px;
+            background: var(--card-bg);
+            padding: 40px 25px;
+            box-shadow: 2px 0 20px rgba(0,0,0,0.03);
+            display: flex;
+            flex-direction: column;
+            z-index: 10;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--logo-green);
+            margin-bottom: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .logo i { animation: floatEffect 3s ease-in-out infinite; }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .menu a {
+            color: var(--text-gray);
+            text-decoration: none;
+            padding: 14px 18px;
+            border-radius: 14px;
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .menu a:hover, .menu a.active {
+            background: var(--bg-color);
+            color: var(--logo-green);
+            transform: translateX(5px);
+        }
+
+        /* CONTENT MONITORING */
+        .content {
+            flex: 1;
+            padding: 35px;
+            overflow-x: hidden;
+            animation: fadeInUp 0.6s ease-out;
+        }
+
+        .page-header {
+            margin-bottom: 35px;
+        }
+
+        .page-header h1 {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--logo-green);
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .page-header p {
+            color: var(--text-gray);
+            margin-top: 5px;
+            margin-left: 45px;
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 20px;
+            padding: 35px 20px;
+            text-align: center;
+            box-shadow: 0 8px 15px rgba(0,0,0,.02);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: none;
+            border-bottom: 5px solid var(--border-green);
+        }
+
+        .card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(21, 138, 76, 0.1);
+        }
+
+        .card:hover .icon-wrapper {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .icon-wrapper {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 28px;
+            margin: 0 auto 20px auto;
+            transition: transform 0.3s ease;
+        }
+
+        .card-title {
+            font-size: 16px;
+            color: var(--text-gray);
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .card-value {
+            font-size: 38px;
+            font-weight: 700;
+            color: var(--text-dark);
+        }
+
+        .card-unit {
+            font-size: 18px;
+            color: var(--border-green);
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        /* Warna Ikon Ekstrak Gambar */
+        .card:nth-child(1) .icon-wrapper { color: #eacb48; background-color: #fbf6e5; } /* pH */
+        .card:nth-child(2) .icon-wrapper { color: #e38b50; background-color: #faede4; } /* Nutrisi */
+        .card:nth-child(3) .icon-wrapper { color: #e9645c; background-color: #fae9e8; } /* Suhu */
+        .card:nth-child(4) .icon-wrapper { color: #4697dc; background-color: #eaf3fa; } /* Kelembaban */
+
+        /* RESPONSIVE */
+        @media(max-width: 768px){
+            .wrapper { flex-direction: column; }
+            .sidebar { width: 100%; padding: 20px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+            .logo { margin-bottom: 0; font-size: 24px; }
+            .menu { flex-direction: row; width: 100%; margin-top: 20px; justify-content: space-between; overflow-x: auto; }
+            .content { padding: 20px; }
+            .page-header p { margin-left: 0; }
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
-    <h2>Monitoring Sistem</h2>
-    <a href="/dashboard" class="btn btn-secondary mb-3">
-        Kembali
-    </a>
-    <div class="row">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Jumlah Tanaman</h5>
-                    <h2 th:text="${jumlahTanaman}">0</h2>
-                </div>
-            </div>
+
+<div class="wrapper">
+    <div class="sidebar">
+        <div class="logo">
+            <i class="fas fa-leaf"></i> Hydropedia
         </div>
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5>Jumlah Notifikasi</h5>
-                    <h2 th:text="${jumlahNotifikasi}">0</h2>
-                </div>
-            </div>
+        <div class="menu">
+            <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+            <a href="/tanaman"><i class="fas fa-seedling"></i> Tanaman</a>
+            <a href="/monitoring" class="active"><i class="fas fa-desktop"></i> Monitoring</a>
+            <a href="/notifikasi"><i class="fas fa-bell"></i> Notifikasi</a>
+            <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
         </div>
     </div>
-    <div class="alert alert-success mt-4">
-        Sistem Hydropedia Berjalan Normal
+
+    <div class="content">
+        <div class="page-header">
+            <h1><i class="fas fa-desktop"></i> Monitoring Sensor</h1>
+            <p>Pantau metrik tanaman Anda secara mendetail dan real-time.</p>
+        </div>
+
+        <div class="grid-container">
+            <div class="card">
+                <div class="icon-wrapper"><i class="fas fa-vial"></i></div>
+                <div class="card-title">Tingkat pH</div>
+                <div class="card-value">6.5</div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper"><i class="fas fa-seedling"></i></div>
+                <div class="card-title">Nutrisi (PPM)</div>
+                <div class="card-value">850</div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper"><i class="fas fa-thermometer-half"></i></div>
+                <div class="card-title">Suhu Air</div>
+                <div class="card-value">27<span class="card-unit">°C</span></div>
+            </div>
+
+            <div class="card">
+                <div class="icon-wrapper"><i class="fas fa-tint"></i></div>
+                <div class="card-title">Kelembaban</div>
+                <div class="card-value">68<span class="card-unit">%</span></div>
+            </div>
+        </div>
     </div>
 </div>
+
 </body>
 </html>

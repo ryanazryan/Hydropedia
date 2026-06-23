@@ -3,12 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.hydropedia.hydropedia.model;
+
 import jakarta.persistence.*;
 
 /**
  *
  * @author Ryan
  */
+
 @Entity
 @Table(name = "users")
 public class User {
@@ -27,19 +29,6 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public void registrasi() {
-        System.out.println("Registrasi user: " + username);
-    }
-
-    public boolean login() {
-        System.out.println("Login user: " + username);
-        return true;
-    }
-
-    public void logout() {
-        System.out.println("Logout user: " + username);
     }
 
     public int getIdUser() {
