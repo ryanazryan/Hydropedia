@@ -15,14 +15,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
 import java.util.List;
 
 /**
  *
  * @author Ryan
  */
-
 @Controller
 public class TanamanController {
 
@@ -34,14 +32,13 @@ public class TanamanController {
 
     @PostMapping("/tanaman/simpan")
     public String simpanTanaman(
-
             @RequestParam String namaTanaman,
             @RequestParam int estimasiUmur,
             @RequestParam double phIdealMin,
             @RequestParam double phIdealMax,
             @RequestParam double nutrisiIdeal,
             @RequestParam int idJenis
-    ){
+    ) {
 
         Tanaman tanaman = new Tanaman();
 
@@ -51,8 +48,8 @@ public class TanamanController {
         tanaman.setPhIdealMax(phIdealMax);
         tanaman.setNutrisiIdeal(nutrisiIdeal);
 
-        JenisTanaman jenis =
-                jenisTanamanRepository
+        JenisTanaman jenis
+                = jenisTanamanRepository
                         .findById(idJenis)
                         .orElse(null);
 
@@ -86,7 +83,6 @@ public class TanamanController {
     @PutMapping("/api/tanaman/{id}")
     @ResponseBody
     public ResponseEntity<Tanaman> updateTanaman(
-
             @PathVariable int id,
             @RequestBody Tanaman tanaman
     ) {
@@ -94,6 +90,71 @@ public class TanamanController {
         return ResponseEntity.ok(
                 tanamanService.ubahTanaman(id, tanaman)
         );
+    }
+
+    @GetMapping("/tanaman/edit/{id}")
+    public String editTanaman(
+            @PathVariable int id,
+            Model model
+    ) {
+
+        Tanaman tanaman
+                = tanamanService
+                        .cariById(id);
+
+        model.addAttribute(
+                "tanaman",
+                tanaman
+        );
+
+        model.addAttribute(
+                "jenisList",
+                jenisTanamanRepository.findAll()
+        );
+
+        return "tanaman-edit";
+    }
+
+    @PostMapping("/tanaman/update/{id}")
+    public String updateTanaman(
+            @PathVariable int id,
+            @RequestParam String namaTanaman,
+            @RequestParam int estimasiUmur,
+            @RequestParam double phIdealMin,
+            @RequestParam double phIdealMax,
+            @RequestParam double nutrisiIdeal,
+            @RequestParam int idJenis
+    ) {
+
+        Tanaman tanaman
+                = tanamanService.cariById(id);
+
+        tanaman.setNamaTanaman(namaTanaman);
+        tanaman.setEstimasiUmur(estimasiUmur);
+        tanaman.setPhIdealMin(phIdealMin);
+        tanaman.setPhIdealMax(phIdealMax);
+        tanaman.setNutrisiIdeal(nutrisiIdeal);
+
+        JenisTanaman jenis
+                = jenisTanamanRepository
+                        .findById(idJenis)
+                        .orElse(null);
+
+        tanaman.setJenisTanaman(jenis);
+
+        tanamanService.tambahTanaman(tanaman);
+
+        return "redirect:/tanaman";
+    }
+
+    @GetMapping("/tanaman/delete/{id}")
+    public String deleteTanaman(
+            @PathVariable int id
+    ) {
+
+        tanamanService.hapusTanaman(id);
+
+        return "redirect:/tanaman";
     }
 
     @DeleteMapping("/api/tanaman/{id}")

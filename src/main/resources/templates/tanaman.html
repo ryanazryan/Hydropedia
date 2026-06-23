@@ -1,440 +1,478 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="id">
-<head>
+    <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Hydropedia - Data Tanaman</title>
+        <title>Hydropedia - Data Tanaman</title>
 
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-<link rel="stylesheet"
-href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+        <link rel="stylesheet"
+              href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
-<style>
+        <style>
 
-:root{
-    --primary:#16a34a;
-    --secondary:#22c55e;
-    --light:#f0fdf4;
-    --dark:#14532d;
-    --gray:#64748b;
-}
+            :root{
+                --primary:#16a34a;
+                --secondary:#22c55e;
+                --light:#f0fdf4;
+                --dark:#14532d;
+                --gray:#64748b;
+            }
 
-*{
-    font-family:'Poppins',sans-serif;
-}
+            *{
+                font-family:'Poppins',sans-serif;
+            }
 
-body{
-    margin:0;
-    background:#f8fafc;
-}
+            body{
+                margin:0;
+                background:#f8fafc;
+            }
 
-.wrapper{
-    display:flex;
-    min-height:100vh;
-}
+            .wrapper{
+                display:flex;
+                min-height:100vh;
+            }
 
-/* SIDEBAR */
+            /* SIDEBAR */
 
-.sidebar{
+            .sidebar{
 
-    width:260px;
+                width:260px;
 
-    background:white;
+                background:white;
 
-    border-right:1px solid #e2e8f0;
+                border-right:1px solid #e2e8f0;
 
-    padding:30px;
-}
+                padding:30px;
+            }
 
-.logo{
+            .logo{
 
-    font-size:28px;
-    font-weight:700;
+                font-size:28px;
+                font-weight:700;
 
-    color:var(--primary);
+                color:var(--primary);
 
-    margin-bottom:40px;
-}
+                margin-bottom:40px;
+            }
 
-.menu{
+            .menu{
 
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-}
+                display:flex;
+                flex-direction:column;
+                gap:10px;
+            }
 
-.menu a{
+            .menu a{
 
-    text-decoration:none;
+                text-decoration:none;
 
-    color:#475569;
+                color:#475569;
 
-    padding:14px 18px;
+                padding:14px 18px;
 
-    border-radius:12px;
+                border-radius:12px;
 
-    transition:.3s;
-}
+                transition:.3s;
+            }
 
-.menu a:hover,
-.menu a.active{
+            .menu a:hover,
+            .menu a.active{
 
-    background:var(--light);
+                background:var(--light);
 
-    color:var(--primary);
-}
+                color:var(--primary);
+            }
 
-/* CONTENT */
+            /* CONTENT */
 
-.content{
+            .content{
 
-    flex:1;
+                flex:1;
 
-    padding:40px;
-}
+                padding:40px;
+            }
 
-.topbar{
+            .topbar{
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
 
-    margin-bottom:30px;
-}
+                margin-bottom:30px;
+            }
 
-.topbar h1{
+            .topbar h1{
 
-    font-size:32px;
-    font-weight:700;
+                font-size:32px;
+                font-weight:700;
 
-    color:var(--dark);
-}
+                color:var(--dark);
+            }
 
-.btn-add{
+            .btn-add{
 
-    background:var(--primary);
+                background:var(--primary);
 
-    color:white;
+                color:white;
 
-    text-decoration:none;
+                text-decoration:none;
 
-    padding:12px 22px;
+                padding:12px 22px;
 
-    border-radius:12px;
+                border-radius:12px;
 
-    font-weight:600;
-}
+                font-weight:600;
+            }
 
-.btn-add:hover{
+            .btn-add:hover{
 
-    background:#15803d;
-    color:white;
-}
+                background:#15803d;
+                color:white;
+            }
 
-.plant-grid{
+            .plant-grid{
 
-    display:grid;
+                display:grid;
 
-    grid-template-columns:
-    repeat(auto-fill,minmax(320px,1fr));
+                grid-template-columns:
+                    repeat(auto-fill,minmax(320px,1fr));
 
-    gap:25px;
-}
+                gap:25px;
+            }
 
-.plant-card{
+            .plant-card{
 
-    background:white;
+                background:white;
 
-    border-radius:24px;
+                border:2px solid #dcfce7;
 
-    padding:25px;
+                border-radius:24px;
 
-    box-shadow:
-    0 10px 30px rgba(0,0,0,.05);
+                overflow:hidden;
 
-    transition:.3s;
-}
+                transition:.3s;
 
-.plant-card:hover{
+                box-shadow:
+                    0 8px 25px rgba(22,163,74,.08);
+            }
 
-    transform:translateY(-6px);
-}
+            .plant-card:hover{
 
-.plant-header{
+                transform:translateY(-8px);
 
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
+                border-color:#16a34a;
 
-    margin-bottom:15px;
-}
+                box-shadow:
+                    0 20px 40px rgba(22,163,74,.15);
+            }
 
-.plant-icon{
+            .plant-header{
 
-    width:55px;
-    height:55px;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
 
-    border-radius:50%;
+                margin-bottom:15px;
+            }
 
-    background:var(--light);
+            .plant-icon{
 
-    display:flex;
-    align-items:center;
-    justify-content:center;
+                width:55px;
+                height:55px;
 
-    color:var(--primary);
+                border-radius:50%;
 
-    font-size:24px;
-}
+                background:var(--light);
 
-.badge-jenis{
+                display:flex;
+                align-items:center;
+                justify-content:center;
 
-    background:#dcfce7;
+                color:var(--primary);
 
-    color:#166534;
+                font-size:24px;
+            }
 
-    padding:6px 14px;
+            .badge-jenis{
 
-    border-radius:50px;
+                background:#dcfce7;
 
-    font-size:12px;
+                color:#166534;
 
-    font-weight:600;
-}
+                padding:6px 14px;
 
-.nama{
+                border-radius:50px;
 
-    font-size:22px;
-    font-weight:700;
+                font-size:12px;
 
-    color:#1e293b;
-}
+                font-weight:600;
+            }
 
-.detail{
+            .nama{
 
-    margin-top:20px;
-}
+                font-size:22px;
+                font-weight:700;
 
-.detail-row{
+                color:#1e293b;
+            }
 
-    display:flex;
-    justify-content:space-between;
+            .detail{
 
-    padding:12px 0;
+                margin-top:20px;
+            }
 
-    border-bottom:
-    1px solid #f1f5f9;
-}
+            .detail-row{
 
-.label{
+                display:flex;
+                justify-content:space-between;
 
-    color:#64748b;
-}
+                padding:12px 0;
 
-.value{
+                border-bottom:
+                    1px solid #f1f5f9;
+            }
 
-    font-weight:600;
-}
+            .label{
 
-.card-footer{
+                color:#64748b;
+            }
 
-    margin-top:20px;
+            .value{
 
-    display:flex;
-    justify-content:space-between;
-}
+                font-weight:600;
+            }
 
-.btn-action{
+            .card-footer{
 
-    border:none;
+                margin-top:20px;
 
-    padding:10px 15px;
+                display:flex;
+                justify-content:space-between;
+            }
 
-    border-radius:10px;
+            .btn-action{
 
-    cursor:pointer;
-}
+                border:none;
 
-.btn-edit{
+                padding:10px 15px;
 
-    background:#fef3c7;
+                border-radius:10px;
 
-    color:#92400e;
-}
+                cursor:pointer;
+            }
 
-.btn-delete{
+            .btn-edit{
 
-    background:#fee2e2;
+                background:#fef3c7;
 
-    color:#991b1b;
-}
+                color:#92400e;
+            }
 
-.empty{
+            .btn-delete{
 
-    background:white;
+                background:#fee2e2;
 
-    padding:40px;
+                color:#991b1b;
+            }
 
-    border-radius:20px;
+            .empty{
 
-    text-align:center;
-}
+                background:white;
 
-</style>
+                padding:40px;
 
-</head>
-<body>
+                border-radius:20px;
 
-<div class="wrapper">
+                text-align:center;
+            }
 
-    <div class="sidebar">
+            .plant-image{
 
-        <div class="logo">
-            🌱 Hydropedia
-        </div>
+                width:100%;
+                height:220px;
 
-        <div class="menu">
+                overflow:hidden;
+            }
 
-            <a href="/dashboard">
-                <i class="fa-solid fa-chart-line"></i>
-                Dashboard
-            </a>
+            .plant-image img{
 
-            <a href="/tanaman" class="active">
-                <i class="fa-solid fa-seedling"></i>
-                Tanaman
-            </a>
+                width:100%;
+                height:100%;
 
-            <a href="/monitoring">
-                <i class="fa-solid fa-desktop"></i>
-                Monitoring
-            </a>
+                object-fit:cover;
 
-            <a href="/notifikasi">
-                <i class="fa-solid fa-bell"></i>
-                Notifikasi
-            </a>
+                transition:.4s;
+            }
 
-            <a href="/">
-                <i class="fa-solid fa-right-from-bracket"></i>
-                Logout
-            </a>
+            .plant-card:hover .plant-image img{
 
-        </div>
+                transform:scale(1.08);
+            }
 
-    </div>
+        </style>
 
-    <div class="content">
+    </head>
+    <body>
 
-        <div class="topbar">
+        <div class="wrapper">
 
-            <h1>
-                🌿 Data Tanaman
-            </h1>
+            <div class="sidebar">
 
-            <a href="/tanaman/tambah"
-               class="btn-add">
+                <div class="logo">
+                    🌱 Hydropedia
+                </div>
 
-                <i class="fa-solid fa-plus"></i>
-                Tambah Tanaman
+                <div class="menu">
 
-            </a>
+                    <a href="/dashboard">
+                        <i class="fa-solid fa-chart-line"></i>
+                        Dashboard
+                    </a>
 
-        </div>
+                    <a href="/tanaman" class="active">
+                        <i class="fa-solid fa-seedling"></i>
+                        Tanaman
+                    </a>
 
-        <div th:if="${#lists.isEmpty(tanamanList)}"
-             class="empty">
+                    <a href="/monitoring">
+                        <i class="fa-solid fa-desktop"></i>
+                        Monitoring
+                    </a>
 
-            <h3>Belum Ada Data Tanaman</h3>
+                    <a href="/notifikasi">
+                        <i class="fa-solid fa-bell"></i>
+                        Notifikasi
+                    </a>
 
-            <p>
-                Silahkan tambahkan tanaman terlebih dahulu.
-            </p>
-
-        </div>
-
-        <div class="plant-grid">
-
-            <div class="plant-card"
-                 th:each="tanaman : ${tanamanList}">
-
-                <div class="plant-header">
-
-                    <div class="plant-icon">
-                        <i class="fa-solid fa-leaf"></i>
-                    </div>
-
-                    <div class="badge-jenis"
-                         th:text="${tanaman.jenisTanaman != null ? tanaman.jenisTanaman.namaJenis : 'Tidak Ada Jenis'}">
-
-                        Jenis
-
-                    </div>
+                    <a href="/">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                        Logout
+                    </a>
 
                 </div>
 
-                <div class="nama"
-                     th:text="${tanaman.namaTanaman}">
-                </div>
+            </div>
 
-                <div class="detail">
+            <div class="content">
 
-                    <div class="detail-row">
+                <div class="topbar">
 
-                        <span class="label">
-                            Umur Panen
-                        </span>
+                    <h1>
+                        🌿 Data Tanaman
+                    </h1>
 
-                        <span class="value"
-                              th:text="${tanaman.estimasiUmur + ' Hari'}">
-                        </span>
+                    <a href="/tanaman/tambah"
+                       class="btn-add">
 
-                    </div>
+                        <i class="fa-solid fa-plus"></i>
+                        Tambah Tanaman
 
-                    <div class="detail-row">
-
-                        <span class="label">
-                            pH Ideal
-                        </span>
-
-                        <span class="value"
-                              th:text="${tanaman.phIdealMin + ' - ' + tanaman.phIdealMax}">
-                        </span>
-
-                    </div>
-
-                    <div class="detail-row">
-
-                        <span class="label">
-                            Nutrisi
-                        </span>
-
-                        <span class="value"
-                              th:text="${tanaman.nutrisiIdeal + ' ppm'}">
-                        </span>
-
-                    </div>
+                    </a>
 
                 </div>
 
-                <div class="card-footer">
+                <div th:if="${#lists.isEmpty(tanamanList)}"
+                     class="empty">
 
-                    <button class="btn-action btn-edit">
+                    <h3>Belum Ada Data Tanaman</h3>
 
-                        <i class="fa-solid fa-pen"></i>
+                    <p>
+                        Silahkan tambahkan tanaman terlebih dahulu.
+                    </p>
 
-                    </button>
+                </div>
 
-                    <button class="btn-action btn-delete">
+                <div class="plant-grid">
 
-                        <i class="fa-solid fa-trash"></i>
+                    <div class="plant-card"
+                         th:each="tanaman : ${tanamanList}">
 
-                    </button>
+                        <div class="plant-header">
+
+                            <div class="plant-icon">
+                                <i class="fa-solid fa-leaf"></i>
+                            </div>
+
+                            <div class="badge-jenis"
+                                 th:text="${tanaman.jenisTanaman != null ? tanaman.jenisTanaman.namaJenis : 'Tidak Ada Jenis'}">
+
+                                Jenis
+
+                            </div>
+
+                        </div>
+
+                        <div class="nama"
+                             th:text="${tanaman.namaTanaman}">
+                        </div>
+
+                        <div class="detail">
+
+                            <div class="detail-row">
+
+                                <span class="label">
+                                    Umur Panen
+                                </span>
+
+                                <span class="value"
+                                      th:text="${tanaman.estimasiUmur + ' Hari'}">
+                                </span>
+
+                            </div>
+
+                            <div class="detail-row">
+
+                                <span class="label">
+                                    pH Ideal
+                                </span>
+
+                                <span class="value"
+                                      th:text="${tanaman.phIdealMin + ' - ' + tanaman.phIdealMax}">
+                                </span>
+
+                            </div>
+
+                            <div class="detail-row">
+
+                                <span class="label">
+                                    Nutrisi
+                                </span>
+
+                                <span class="value"
+                                      th:text="${tanaman.nutrisiIdeal + ' ppm'}">
+                                </span>
+
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+
+                            <a th:href="@{/tanaman/edit/{id}(id=${tanaman.idTanaman})}"
+                               class="btn-action btn-edit">
+
+                                <i class="fa-solid fa-pen"></i>
+
+                            </a>
+                            <a th:href="@{/tanaman/delete/{id}(id=${tanaman.idTanaman})}"
+
+                               onclick="return confirm('Hapus tanaman ini?')"
+
+                               class="btn-action btn-delete">
+
+                                <i class="fa-solid fa-trash"></i>
+
+                            </a>
+
+                        </div>
+
+                    </div>
 
                 </div>
 
@@ -442,9 +480,5 @@ body{
 
         </div>
 
-    </div>
-
-</div>
-
-</body>
+    </body>
 </html>

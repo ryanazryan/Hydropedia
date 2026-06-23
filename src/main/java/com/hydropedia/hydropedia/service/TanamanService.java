@@ -18,6 +18,7 @@ import java.util.List;
  */
 @Service
 public class TanamanService {
+
     @Autowired
     private TanamanRepository tanamanRepository;
 
@@ -44,6 +45,13 @@ public class TanamanService {
 
     public List<Tanaman> tampilSemuaTanaman() {
         return tanamanRepository.findAll();
+    }
+
+    public Tanaman cariById(int id) {
+
+        return tanamanRepository
+                .findById(id)
+                .orElse(null);
     }
 
     public Tanaman ubahTanaman(int id, Tanaman tanamanBaru) {
