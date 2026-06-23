@@ -62,6 +62,17 @@ public class ViewController {
                 = monitoringRepository
                         .findTopByOrderByIdMonitoringDesc();
 
+
+        if (latest == null) {
+
+            latest = new Monitoring();
+
+            latest.setPh(0.0);
+            latest.setNutrisi(0.0);
+            latest.setSuhu(0.0);
+            latest.setKelembaban(0.0);
+        }
+
         model.addAttribute(
                 "monitoring",
                 latest
