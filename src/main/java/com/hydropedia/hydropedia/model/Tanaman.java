@@ -4,6 +4,9 @@
  */
 package com.hydropedia.hydropedia.model;
 import jakarta.persistence.*;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.FetchType;
 
 /**
  *
@@ -23,6 +26,8 @@ public class Tanaman {
     private double phIdealMax;
     private double nutrisiIdeal;
     
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "id_jenis")
     private JenisTanaman jenisTanaman;
     
     public Tanaman(){
