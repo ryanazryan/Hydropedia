@@ -1,311 +1,101 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" lang="id">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Hydropedia - Notifikasi</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hydropedia - Notifikasi</title>
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-        <style>
-            :root {
-                --bg-color: #eef9f1;
-                --logo-green: #158a4c;
-                --border-green: #32d373;
-                --text-dark: #283b4e;
-                --text-gray: #829292;
-                --card-bg: #ffffff;
-            }
+    <style>
+        :root {
+            --bg-color: #eef9f1;
+            --logo-green: #158a4c;
+            --border-green: #32d373;
+            --text-dark: #283b4e;
+            --text-gray: #829292;
+            --card-bg: #ffffff;
+        }
 
-            * {
-                margin: 0;
-                padding: 0;
-                box-sizing: border-box;
-                font-family: 'Poppins', sans-serif;
-            }
-            body {
-                background-color: var(--bg-color);
-                color: var(--text-dark);
-                overflow-x: hidden;
-            }
-            .wrapper {
-                display: flex;
-                min-height: 100vh;
-            }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        body { background-color: var(--bg-color); color: var(--text-dark); overflow-x: hidden; }
+        .wrapper { display: flex; min-height: 100vh; }
 
-            @keyframes fadeInUp {
-                from {
-                    opacity: 0;
-                    transform: translateY(20px);
-                }
-                to {
-                    opacity: 1;
-                    transform: translateY(0);
-                }
-            }
-            @keyframes floatEffect {
-                0% {
-                    transform: translateY(0px);
-                }
-                50% {
-                    transform: translateY(-5px);
-                }
-                100% {
-                    transform: translateY(0px);
-                }
-            }
+        /* SIDEBAR */
+        .sidebar { width: 270px; background: var(--card-bg); padding: 40px 25px; box-shadow: 2px 0 20px rgba(0,0,0,0.03); display: flex; flex-direction: column; z-index: 10; }
+        .logo { font-size: 32px; font-weight: 700; color: var(--logo-green); margin-bottom: 50px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .menu { display: flex; flex-direction: column; gap: 10px; }
+        .menu a { color: var(--text-gray); text-decoration: none; padding: 14px 18px; border-radius: 14px; transition: all 0.3s; font-weight: 500; display: flex; align-items: center; gap: 12px; }
+        .menu a:hover, .menu a.active { background: var(--bg-color); color: var(--logo-green); transform: translateX(5px); }
 
-            /* SIDEBAR */
-            .sidebar {
-                width: 270px;
-                background: var(--card-bg);
-                padding: 40px 25px;
-                box-shadow: 2px 0 20px rgba(0,0,0,0.03);
-                display: flex;
-                flex-direction: column;
-                z-index: 10;
-            }
-            .logo {
-                font-size: 32px;
-                font-weight: 700;
-                color: var(--logo-green);
-                margin-bottom: 50px;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 10px;
-            }
-            .logo i {
-                animation: floatEffect 3s ease-in-out infinite;
-            }
-            .menu {
-                display: flex;
-                flex-direction: column;
-                gap: 10px;
-            }
-            .menu a {
-                color: var(--text-gray);
-                text-decoration: none;
-                padding: 14px 18px;
-                border-radius: 14px;
-                transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-                font-weight: 500;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-            .menu a:hover, .menu a.active {
-                background: var(--bg-color);
-                color: var(--logo-green);
-                transform: translateX(5px);
-            }
+        /* CONTENT */
+        .content { flex: 1; padding: 35px; animation: fadeInUp 0.6s ease-out; }
+        .page-header { margin-bottom: 35px; display: flex; justify-content: space-between; align-items: center; }
+        .page-header h1 { font-size: 32px; font-weight: 700; color: var(--logo-green); margin: 0; display: flex; align-items: center; gap: 12px; }
+        
+        /* NOTIFIKASI */
+        .notif-list { display: flex; flex-direction: column; gap: 15px; }
+        .notif-card { background: var(--card-bg); border-radius: 16px; padding: 20px 25px; display: flex; align-items: center; gap: 20px; box-shadow: 0 5px 15px rgba(0,0,0,0.02); border-left: 6px solid #e0e0e0; }
+        .notif-icon { width: 50px; height: 50px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 20px; flex-shrink: 0; background: #f1f1f1; }
+        .notif-warning { border-left-color: #f1c40f; }
+        .notif-success { border-left-color: var(--logo-green); }
+        .notif-info { border-left-color: #3498db; }
 
-            /* CONTENT */
-            .content {
-                flex: 1;
-                padding: 35px;
-                max-width: 1000px;
-                animation: fadeInUp 0.6s ease-out;
-            }
+        /* RESPONSIVE DESIGN */
+        @media(max-width: 768px){
+            .wrapper { flex-direction: column; }
+            .sidebar { width: 100%; padding: 20px; flex-direction: row; justify-content: space-between; align-items: center; flex-wrap: wrap; }
+            .menu { flex-direction: row; width: 100%; margin-top: 20px; justify-content: space-between; overflow-x: auto; }
+            .page-header { flex-direction: column; align-items: flex-start; gap: 15px; }
+            .content { padding: 20px; }
+        }
+        
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+    </style>
+</head>
+<body>
 
-            .page-header {
-                margin-bottom: 35px;
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-            }
-            .page-header h1 {
-                font-size: 32px;
-                font-weight: 700;
-                color: var(--logo-green);
-                margin: 0;
-                display: flex;
-                align-items: center;
-                gap: 12px;
-            }
-
-            .btn-mark-read {
-                background: rgba(21, 138, 76, 0.1);
-                color: var(--logo-green);
-                border: none;
-                padding: 10px 20px;
-                border-radius: 10px;
-                font-weight: 600;
-                transition: all 0.3s;
-            }
-            .btn-mark-read:hover {
-                background: var(--logo-green);
-                color: white;
-            }
-
-            /* LIST NOTIFIKASI */
-            .notif-list {
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-
-            .notif-card {
-                background: var(--card-bg);
-                border-radius: 16px;
-                padding: 20px 25px;
-                display: flex;
-                align-items: center;
-                gap: 20px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.02);
-                transition: transform 0.3s ease, box-shadow 0.3s ease;
-                position: relative;
-                overflow: hidden;
-                border-left: 6px solid #e0e0e0; /* Default border */
-            }
-
-            .notif-card:hover {
-                transform: translateX(5px);
-                box-shadow: 0 8px 20px rgba(21, 138, 76, 0.08);
-            }
-
-            .notif-icon {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                font-size: 20px;
-                flex-shrink: 0;
-                background: #f1f1f1;
-                color: #888;
-            }
-
-            .notif-warning {
-                border-left-color: #f1c40f;
-            }
-            .notif-warning .notif-icon {
-                background: #fef9e7;
-                color: #f1c40f;
-            }
-
-            .notif-success {
-                border-left-color: var(--logo-green);
-            }
-            .notif-success .notif-icon {
-                background: #eaf8f0;
-                color: var(--logo-green);
-            }
-
-            .notif-info {
-                border-left-color: #3498db;
-            }
-            .notif-info .notif-icon {
-                background: #ebf5fb;
-                color: #3498db;
-            }
-
-            .notif-content {
-                flex: 1;
-            }
-            .notif-title {
-                font-size: 16px;
-                font-weight: 600;
-                color: var(--text-dark);
-                margin-bottom: 4px;
-            }
-            .notif-time {
-                font-size: 13px;
-                color: var(--text-gray);
-                display: flex;
-                align-items: center;
-                gap: 5px;
-            }
-
-            /* RESPONSIVE */
-            @media(max-width: 768px){
-                .wrapper {
-                    flex-direction: column;
-                }
-                .sidebar {
-                    width: 100%;
-                    padding: 20px;
-                    flex-direction: row;
-                    justify-content: space-between;
-                    align-items: center;
-                    flex-wrap: wrap;
-                }
-                .logo {
-                    margin-bottom: 0;
-                    font-size: 24px;
-                }
-                .menu {
-                    flex-direction: row;
-                    width: 100%;
-                    margin-top: 20px;
-                    justify-content: space-between;
-                    overflow-x: auto;
-                }
-                .content {
-                    padding: 20px;
-                }
-                .page-header {
-                    flex-direction: column;
-                    align-items: flex-start;
-                    gap: 15px;
-                }
-            }
-        </style>
-    </head>
-    <body>
-
-        <div class="wrapper">
-            <div class="sidebar">
-                <div class="logo"><i class="fas fa-leaf"></i> Hydropedia</div>
-                <div class="menu">
-                    <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
-                    <a href="/tanaman"><i class="fas fa-seedling"></i> Tanaman</a>
-                    <a href="/monitoring"><i class="fas fa-desktop"></i> Monitoring</a>
-                    <a href="/notifikasi" class="active"><i class="fas fa-bell"></i> Notifikasi</a>
-                    <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
-                </div>
-            </div>
-
-            <div class="content">
-                <div class="page-header">
-                    <h1><i class="fas fa-bell"></i> Pusat Notifikasi</h1>
-
-                    <a th:href="@{/notifikasi/clear}" class="btn-mark-read text-decoration-none" onclick="return confirm('Yakin ingin membersihkan semua notifikasi?');">
-                        <i class="fas fa-check-double"></i> Tandai Semua Dibaca
-                    </a>
-                </div>
-
-                <div class="notif-list">
-
-                    <div th:each="notif : ${notifikasiList}" 
-                         th:class="'notif-card notif-' + ${notif.status}">
-
-                        <div class="notif-icon">
-                            <i th:if="${notif.status == 'warning'}" class="fas fa-exclamation-triangle"></i>
-                            <i th:if="${notif.status == 'success'}" class="fas fa-check-circle"></i>
-                            <i th:if="${notif.status == 'info'}" class="fas fa-info-circle"></i>
-                        </div>
-
-                        <div class="notif-content">
-                            <div class="notif-title" th:text="${notif.pesan}">Pesan Notifikasi</div>
-
-                            <div class="notif-time">
-                                <i class="far fa-clock"></i> Baru saja
-                            </div>
-                        </div>
-                    </div>
-
-                    <div th:if="${#lists.isEmpty(notifikasiList)}" class="text-center text-muted py-5">
-                        <i class="fas fa-bell-slash fa-3x mb-3 opacity-50"></i>
-                        <p>Belum ada notifikasi untuk saat ini. Sistem dalam keadaan aman!</p>
-                    </div>
-
-                </div>
+    <div class="wrapper">
+        <div class="sidebar">
+            <div class="logo"><i class="fas fa-leaf"></i> Hydropedia</div>
+            <div class="menu">
+                <a href="/dashboard"><i class="fas fa-home"></i> Dashboard</a>
+                <a href="/tanaman"><i class="fas fa-seedling"></i> Tanaman</a>
+                <a href="/monitoring"><i class="fas fa-desktop"></i> Monitoring</a>
+                <a href="/notifikasi" class="active"><i class="fas fa-bell"></i> Notifikasi</a>
+                <a href="/"><i class="fas fa-sign-out-alt"></i> Logout</a>
             </div>
         </div>
 
-    </body>
+        <div class="content">
+            <div class="page-header">
+                <h1><i class="fas fa-bell"></i> Pusat Notifikasi</h1>
+                <a th:href="@{/notifikasi/clear}" class="btn btn-outline-success rounded-pill px-4" onclick="return confirm('Yakin ingin membersihkan semua notifikasi?');">
+                    <i class="fas fa-check-double"></i> Tandai Semua Dibaca
+                </a>
+            </div>
+
+            <div class="notif-list">
+                <div th:each="notif : ${notifikasiList}" th:class="'notif-card notif-' + ${notif.status}">
+                    <div class="notif-icon">
+                        <i th:if="${notif.status == 'warning'}" class="fas fa-exclamation-triangle text-warning"></i>
+                        <i th:if="${notif.status == 'success'}" class="fas fa-check-circle text-success"></i>
+                        <i th:if="${notif.status == 'info'}" class="fas fa-info-circle text-primary"></i>
+                    </div>
+                    <div class="notif-content">
+                        <div class="notif-title" th:text="${notif.pesan}">Pesan</div>
+                        <div class="notif-time text-muted small"><i class="far fa-clock"></i> Baru saja</div>
+                    </div>
+                </div>
+
+                <div th:if="${#lists.isEmpty(notifikasiList)}" class="text-center text-muted py-5">
+                    <i class="fas fa-bell-slash fa-3x mb-3 opacity-50"></i>
+                    <p>Belum ada notifikasi. Sistem dalam keadaan aman!</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
 </html>
