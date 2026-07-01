@@ -19,6 +19,7 @@ target/
 *.db-shm
 *.db-wal
 *.sqbpro
+*.db-journal
 
 ### IntelliJ IDEA ###
 .idea/
