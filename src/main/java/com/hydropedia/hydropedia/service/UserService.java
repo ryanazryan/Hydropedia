@@ -25,15 +25,12 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public boolean login(String username, String password){
-
-        User user =
-                userRepository.findByUsername(username);
-
-        if(user == null){
-            return false;
+    public boolean login(String username, String password) {
+        List<User> users = userRepository.findByUsername(username);
+        if (users != null && !users.isEmpty()) {
+            User user = users.get(0);
+            return user.getPassword().equals(password);
         }
-
-        return user.getPassword().equals(password);
+        return false;
     }
 }
