@@ -62,7 +62,6 @@ public class ViewController {
                 = monitoringRepository
                         .findTopByOrderByIdMonitoringDesc();
 
-
         if (latest == null) {
 
             latest = new Monitoring();
@@ -110,24 +109,32 @@ public class ViewController {
     @GetMapping("/monitoring")
     public String monitoring(Model model) {
 
-        model.addAttribute(
-                "jumlahTanaman",
-                tanamanRepository.count()
-        );
+        Monitoring latest = monitoringRepository.findTopByOrderByIdMonitoringDesc();
+        if (latest == null) {
+            latest = new Monitoring();
+            latest.setPh(0.0);
+            latest.setNutrisi(0.0);
+            latest.setSuhu(0.0);
+            latest.setKelembaban(0.0);
+        }
+        model.addAttribute("monitoring", latest);
 
-        model.addAttribute(
-                "jumlahNotifikasi",
-                notifikasiRepository.count()
-        );
+        model.addAttribute("monitoringList", monitoringRepository.findAll());
+
         return "monitoring";
     }
-
+    
     @GetMapping("/notifikasi")
-    public String notifikasi(Model model) {
-        model.addAttribute(
-                "notifikasiList",
-                notifikasiRepository.findAll()
-        );
-        return "notifikasi";
+    public String notifikasiPage(Model model) {
+        model.addAttribute("notifikasiList", notifikasiRepository.findAll());
+        
+        return "notifikasi"; 
     }
+    
+    @GetMapping("/notifikasi/clear")
+    public String clearNotifikasi() {
+        notifikasiRepository.deleteAll();
+        return "redirect:/notifikasi";
+    }
+
 }

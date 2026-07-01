@@ -508,16 +508,23 @@
                     <div class="notif-box">
                         <h2>Aktivitas Terbaru</h2>
 
-                        <div class="notif-item">
-                            <i class="fas fa-info-circle"></i> pH stabil di angka 6.5
+                        <div th:each="notif : ${notifikasiList}" class="notif-item">
+                            <i th:if="${notif.status == 'warning'}" class="fas fa-exclamation-triangle"></i>
+                            <i th:if="${notif.status == 'success'}" class="fas fa-check-circle"></i>
+                            <i th:if="${notif.status == 'info'}" class="fas fa-info-circle"></i>
+
+                            <span th:text="${notif.pesan}">Pesan notifikasi muncul di sini</span>
                         </div>
-                        <div class="notif-item">
-                            <i class="fas fa-check-circle"></i> Nutrisi normal (850 PPM)
-                        </div>
-                        <div class="notif-item">
-                            <i class="fas fa-cog fa-spin"></i> Pompa sirkulasi aktif
+
+                        <div th:if="${#lists.isEmpty(notifikasiList)}" class="text-muted text-center py-3">
+                            Tidak ada aktivitas baru.
                         </div>
                     </div>
+                    <script>
+                        setInterval(function () {
+                            location.reload();
+                        }, 10000);
+                    </script>
 
                 </div>
 
